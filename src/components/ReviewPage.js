@@ -34,7 +34,7 @@ function ReviewPage() {
     };
 
     const handleEdit = () => {
-        navigate("/", { state: { formData } });
+        navigate("/domesticpayment", { state: { formData } });
     };
 
     return (

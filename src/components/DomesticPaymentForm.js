@@ -8,7 +8,7 @@ function DomesticPaymentForm() {
     const initialFormData = location.state?.formData;
 
     const [form, setForm] = useState({
-        paymentReferenceId: "",
+        paymentReference: "",
         beneficiaryId: "",
         paymentAmount: "",
         customerId: "",
@@ -80,10 +80,7 @@ function DomesticPaymentForm() {
             <h2>Domestic Payment Form</h2>
             <form onSubmit={handleSubmit}>
                 {/* Input fields */}
-                <div>
-                    <label>Payment Reference ID</label>
-                    <input type="text" name="paymentReferenceId" value={form.paymentReferenceId} onChange={handleChange} required />
-                </div>
+
                 <div>
                     <label>Beneficiary ID</label>
                     <input type="text" name="beneficiaryId" value={form.beneficiaryId} onChange={handleChange} required />
@@ -162,9 +159,13 @@ function DomesticPaymentForm() {
                         <div style={{ fontSize: "0.9em", color: "#666", marginTop: 8 }}>
                             <em>Please provide either an End Date or Number of Payments. Not both.</em>
                         </div>
+
                     </>
                 )}
-
+                <div>
+                    <label>Payment Reference</label>
+                    <input type="text" name="paymentReference" value={form.paymentReference} onChange={handleChange} pattern="^[a-zA-Z0-9]{1,30}$" />
+                </div>
                 <button type="submit">Submit Payment</button>
             </form>
         </div>
