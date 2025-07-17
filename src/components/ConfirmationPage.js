@@ -1,6 +1,7 @@
 // ConfirmationPage.js
 import { useLocation } from "react-router-dom";
 import '../App.css';
+import { BrowserAgent } from '@newrelic/browser-agent/loaders/browser-agent'
 
 
 function ConfirmationPage() {

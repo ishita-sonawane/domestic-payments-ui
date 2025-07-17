@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { BrowserAgent } from '@newrelic/browser-agent/loaders/browser-agent'
 
 function ReviewPage() {
     const location = useLocation();
@@ -34,7 +35,7 @@ function ReviewPage() {
     };
 
     const handleEdit = () => {
-        navigate("/domesticpayment", { state: { formData } });
+        navigate("/", { state: { formData } });
     };
 
     return (

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import React, {useState, useEffect} from "react";
+import {useNavigate, useLocation} from "react-router-dom";
 import "../App.css";
+import {BrowserAgent} from '@newrelic/browser-agent/loaders/browser-agent'
 
 function DomesticPaymentForm() {
     const navigate = useNavigate();
@@ -26,12 +27,12 @@ function DomesticPaymentForm() {
     // Apply pre-filled data on first render
     useEffect(() => {
         if (initialFormData) {
-            setForm({ ...form, ...initialFormData });
+            setForm({...form, ...initialFormData});
         }
     }, [initialFormData]);
 
     const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
+        setForm({...form, [e.target.name]: e.target.value});
     };
 
     const handlePaymentModeChange = (e) => {
@@ -72,38 +73,48 @@ function DomesticPaymentForm() {
             }
         }
 
-        navigate("/review", { state: { formData: form } });
+        navigate("/review", {state: {formData: form}});
     };
 
     return (
-        <div style={{ maxWidth: 500, margin: "auto" }}>
+        <div style={{maxWidth: 500, margin: "auto"}}>
+            <div style={{textAlign: "center", marginBottom: 16}}>
+                <img
+                    src="/bank-logo.png"
+                    alt="FortiBank Logo"
+                    style={{height: 60}}
+                />
+            </div>
+
             <h2>Domestic Payment Form</h2>
             <form onSubmit={handleSubmit}>
                 {/* Input fields */}
 
                 <div>
                     <label>Beneficiary ID</label>
-                    <input type="text" name="beneficiaryId" value={form.beneficiaryId} onChange={handleChange} required />
+                    <input type="text" name="beneficiaryId" value={form.beneficiaryId} onChange={handleChange}
+                           required/>
                 </div>
                 <div>
                     <label>Payment Amount</label>
-                    <input type="number" name="paymentAmount" value={form.paymentAmount} onChange={handleChange} step="0.01" required />
+                    <input type="number" name="paymentAmount" value={form.paymentAmount} onChange={handleChange}
+                           step="0.01" required/>
                 </div>
                 <div>
                     <label>Customer ID</label>
-                    <input type="text" name="customerId" value={form.customerId} onChange={handleChange} required />
+                    <input type="text" name="customerId" value={form.customerId} onChange={handleChange} required/>
                 </div>
                 <div>
                     <label>Payee Account Number</label>
-                    <input type="text" name="payeeAccountNumber" value={form.payeeAccountNumber} onChange={handleChange} required />
+                    <input type="text" name="payeeAccountNumber" value={form.payeeAccountNumber} onChange={handleChange}
+                           required/>
                 </div>
                 <div>
                     <label>Payment Method</label>
                     <select name="paymentMethod" value={form.paymentMethod} onChange={handleChange} required>
                         <option value="" disabled>Select method</option>
-                        <option value="INTERNET_BANKING">INTERNET_BANKING</option>
-                        <option value="UPI">UPI</option>
-                        <option value="ONLINE_BANKING">ONLINE_BANKING</option>
+                        <option value="RTGS">RTGS</option>
+                        <option value="NEFT">NEFT</option>
                     </select>
                 </div>
 
@@ -112,19 +123,22 @@ function DomesticPaymentForm() {
                     <label>Select Payment Type:</label>
                     <div>
                         <label>
-                            <input type="radio" name="paymentType" value="IMMEDIATE" checked={form.paymentType === "IMMEDIATE"} onChange={handlePaymentModeChange} />
+                            <input type="radio" name="paymentType" value="IMMEDIATE"
+                                   checked={form.paymentType === "IMMEDIATE"} onChange={handlePaymentModeChange}/>
                             Immediate Payment
                         </label>
                     </div>
                     <div>
                         <label>
-                            <input type="radio" name="paymentType" value="SCHEDULED" checked={form.paymentType === "SCHEDULED"} onChange={handlePaymentModeChange} />
+                            <input type="radio" name="paymentType" value="SCHEDULED"
+                                   checked={form.paymentType === "SCHEDULED"} onChange={handlePaymentModeChange}/>
                             Scheduled Payment
                         </label>
                     </div>
                     <div>
                         <label>
-                            <input type="radio" name="paymentType" value="RECURRING" checked={form.paymentType === "RECURRING"} onChange={handlePaymentModeChange} />
+                            <input type="radio" name="paymentType" value="RECURRING"
+                                   checked={form.paymentType === "RECURRING"} onChange={handlePaymentModeChange}/>
                             Recurring Payment
                         </label>
                     </div>
@@ -134,7 +148,8 @@ function DomesticPaymentForm() {
                 {form.paymentMode === "SCHEDULED" && (
                     <div>
                         <label>Schedule Date & Time</label>
-                        <input type="datetime-local" name="paymentScheduleDate" value={form.paymentScheduleDate} onChange={handleChange} />
+                        <input type="datetime-local" name="paymentScheduleDate" value={form.paymentScheduleDate}
+                               onChange={handleChange}/>
                     </div>
                 )}
 
@@ -142,21 +157,25 @@ function DomesticPaymentForm() {
                     <>
                         <div>
                             <label>Recurring Day</label>
-                            <input type="number" name="recurringPaymentDay" value={form.recurringPaymentDay} onChange={handleChange} />
+                            <input type="number" name="recurringPaymentDay" value={form.recurringPaymentDay}
+                                   onChange={handleChange}/>
                         </div>
                         <div>
                             <label>Recurring Month</label>
-                            <input type="text" name="recurringPaymentMonth" value={form.recurringPaymentMonth} onChange={handleChange} />
+                            <input type="text" name="recurringPaymentMonth" value={form.recurringPaymentMonth}
+                                   onChange={handleChange}/>
                         </div>
                         <div>
                             <label>Recurring End Date</label>
-                            <input type="date" name="recurringPaymentEndDate" value={form.recurringPaymentEndDate} onChange={handleChange} />
+                            <input type="date" name="recurringPaymentEndDate" value={form.recurringPaymentEndDate}
+                                   onChange={handleChange}/>
                         </div>
                         <div>
                             <label>Number of Recurring Payments</label>
-                            <input type="number" name="recurringPaymentNumber" value={form.recurringPaymentNumber} onChange={handleChange} />
+                            <input type="number" name="recurringPaymentNumber" value={form.recurringPaymentNumber}
+                                   onChange={handleChange}/>
                         </div>
-                        <div style={{ fontSize: "0.9em", color: "#666", marginTop: 8 }}>
+                        <div style={{fontSize: "0.9em", color: "#666", marginTop: 8}}>
                             <em>Please provide either an End Date or Number of Payments. Not both.</em>
                         </div>
 
@@ -164,7 +183,8 @@ function DomesticPaymentForm() {
                 )}
                 <div>
                     <label>Payment Reference</label>
-                    <input type="text" name="paymentReference" value={form.paymentReference} onChange={handleChange} pattern="^[a-zA-Z0-9]{1,30}$" />
+                    <input type="text" name="paymentReference" value={form.paymentReference} onChange={handleChange}
+                           pattern="^[a-zA-Z0-9]{1,30}$"/>
                 </div>
                 <button type="submit">Submit Payment</button>
             </form>

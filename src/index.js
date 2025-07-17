@@ -3,7 +3,16 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserAgent } from '@newrelic/browser-agent';
 
+const agent = new BrowserAgent({
+    init: {
+        applicationID: '1431852214',
+        licenseKey: 'e344312dffa6e818c05'
+    }
+});
+
+agent.start();
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

@@ -25,12 +25,15 @@ function LoginPage() {
         setError("");
 
         try {
-            const response = await fetch("https://fkqhkr418c.execute-api.us-east-1.amazonaws.com/default/create-identity", {
-                method: "POST",
+            const response = await fetch("https://5kk05iaq65.execute-api.us-east-1.amazonaws.com/default/create-identity", {
+                method: "GET",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    'Authorization':'Basic aXNoaXRhOnBhc3N3b3Jk',
+                    "Origin": "http://localhost:3000",
+                    "Access-Control-Request-Method": "*"
                 },
-                body: JSON.stringify(form)
+                //body: JSON.stringify(form)
             });
 
             if (response.ok) {
